@@ -36,6 +36,11 @@ To install these packages, open the terminal and type the following command:
 ```bash
 pip install sys pynput time tkinter
 ```
+OR
+--
+```bash
+pip install -r requirements.txt 
+```
 
 Usage:
 ------
