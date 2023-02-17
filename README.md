@@ -1,4 +1,4 @@
-AFK Sensor in Python
+AFK Sensor in Python v2.0
 ====================
 
 Have you ever found yourself inactive for too long at your computer and wanted a way to track your idle time? Look no further! In this tutorial, we will be discussing the AFK (Away From Keyboard) Sensor in Python.
