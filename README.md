@@ -1,40 +1,27 @@
 AFK Sensor in Python v2.0
-====================
+==========
 
-Have you ever found yourself inactive for too long at your computer and wanted a way to track your idle time? Look no further! In this tutorial, we will be discussing the AFK (Away From Keyboard) Sensor in Python.
+This is a simple AFK (Away From Keyboard) sensor in Python. The code can be used to detect if the user is inactive for a certain period of time and log the time spent being inactive. It can be useful in scenarios where the user needs to be present and active, like online classes, meetings, or online exams.
 
-An AFK Sensor is a program that tracks the amount of time a user is inactive on their computer. The program runs in the background and can be triggered by keyboard or mouse movements. In this tutorial, we will be building two Python files that will make up the AFK Sensor.
+The code uses Python's multiprocessing library to run two processes simultaneously. One process runs the sensor function and the other runs the main function which includes a GUI (Graphical User Interface) using Tkinter.
 
-The first file, named `afksensor.py`, will be responsible for tracking the idle time of the user. The second file, named `main.py`, will be responsible for starting the AFK Sensor and displaying the timer.
+Installation
+------------
+
+The code requires the following packages to be installed:
+
+*   pynput
+*   tkinter
+*   multiprocessing
 
 
-
-Installation and Requirements for Afksenour in Python
------------------------------------------------------
-
-Installation:
--------------
-
-To install Afksenour, you will need to have Python 3 installed on your system. You can download Python 3 from the official website [https://python.org/](https://python.org/).
-
-Once you have Python 3 installed, you can then download the source code from GitHub by clicking the "Clone or Download" button.
-
-Requirements:
--------------
-
-Afksenour requires the following packages to be installed:
-
-1.  sys
-2.  pynput
-3.  time
-4.  tkinter (for GUI version)
 
 To install these packages, open the terminal and type the following command:
 
 
 
 ```bash
-pip install sys pynput time tkinter
+pip install sys pynput time tkinter multiprocessing
 ```
 OR
 --
@@ -42,42 +29,30 @@ OR
 pip install -r requirements.txt 
 ```
 
-Usage:
-------
-
-There are two files included in this repository: `afksensour.py` and `main.py`.
-
-The `afksensour.py` file contains the core logic for the Afksenour. It uses the pynput library to detect keyboard inputs and calculate the time spent on the computer.
-
-The `main.py` file contains the GUI for Afksenour. It displays the time spent on the computer and allows you to start and stop the timer.
-
-To run Afksenour, simply open the terminal and run the following command:
-
-
-
-```bash
-python main.py
-```
-
-With Afksenour, you can keep track of how much time you spend on your computer and make sure to take breaks to avoid eye strain and other health problems.
-
-afksensor.py
+How it works
 ------------
 
-The `afksensor.py` file uses the `pynput` library to detect keyboard movements. It contains the following functions: `timer`, `pretimer`, and `afk_f`.
+The program consists of two functions: `main_` and `sensor`.
 
-The `timer` function starts the actual idle time tracking. It keeps track of the hours, minutes, and seconds the user has been inactive. The `pretimer` function runs for 10 seconds before the `timer` function starts. This gives the user the chance to interrupt the AFK Sensor before it starts tracking their idle time. The `afk_f` function is used to reset the `pretimer` if the user presses a key during the 10 seconds.
+### The main\_ function
 
-The `checker` function is used to check if the main program wants to close the AFK Sensor. The `breakloop` function is used to break the `timer` loop if a key is pressed.
+The `main_` function is responsible for the GUI. It creates a Tkinter window with a clock that updates every second. The function also creates a `loop` function that updates the clock every second. The `loop` function uses the `after` method from Tkinter to call itself every second. This creates a loop that updates the clock every second.
 
-main.py
--------
+The `main_` function also creates a `close_assistant` function that is called when the user closes the window. This function writes the total time spent being inactive to a log file and sets a flag in a communication file to signal the `sensor` function to stop. Finally, the function closes the Tkinter window and terminates the program.
 
-The `main.py` file uses the `Tkinter` library to create a graphical user interface (GUI) for the AFK Sensor. It contains the following functions: `loop` and `close_assistant`.
+### The sensor function
 
-The `loop` function starts the timer and updates the timer display in the GUI. The `close_assistant` function is used to close the AFK Sensor and write the end time to a text file named `log-time.txt`.
+The `sensor` function is responsible for detecting if the user is inactive for a certain period of time. The function starts by initializing the time to zero and creating a `checker` function that checks if the `wannaquit` flag is set to True. If the flag is set, the function terminates. Otherwise, the function continues to check if the communication file contains a True flag. If the flag is True, the function writes the time spent being inactive to a log file and terminates the program.
+
+The `sensor` function creates a `timer` function that counts the time spent being inactive. The function starts by initializing a counter to zero and creating a `breakloop` function that is used to break out of the `while` loop if the user presses a key. The `timer` function updates the time every second using the `time.sleep` method.
+
+The `sensor` function also creates a `pretimer` function that runs before the `timer` function. The `pretimer` function counts the time spent being inactive before the `timer` function starts. If the user presses a key during the `pretimer` function, the function resets and starts again. If the user doesn't press a key during the `pretimer` function, the function starts the `timer` function.
+
+The `sensor` function also creates a `conector` function that is called when the user presses a key. The function sets the `breakloop` function to True, which breaks out of the `while` loop in the `timer` function and starts the `pretimer` function again.
+
+Finally, the `sensor` function uses the multiprocessing library to create a process for the `sensor` function and a process for the `main_` function. The `if __name__ =="__main__":` statement starts the two processes.
 
 Conclusion
 ----------
 
-The AFK Sensor in Python is a great tool for keeping track of your idle time on your computer. By using the `pynput` and `Tkinter` libraries, we were able to create a simple and efficient program. Try building this project yourself and see how you can improve upon it. Happy coding!
+In conclusion, this code can be useful in scenarios where the user needs to be present and active, like online classes, meetings, or online exams. The code is simple and easy to understand, and it can be modified to suit specific needs.
